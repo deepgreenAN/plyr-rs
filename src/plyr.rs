@@ -1,4 +1,5 @@
 use crate::options::{PlyrOptions, PreviewThumbnailsOptions};
+use crate::source::SourceInfo;
 
 use js_sys::Function;
 use wasm_bindgen::prelude::*;
@@ -10,6 +11,8 @@ extern "C" {
 
     #[doc = "The Plyr class"]
     pub type Plyr;
+
+    // method
 
     #[wasm_bindgen(constructor)]
     #[doc = "Plyr constructor"]
@@ -99,6 +102,123 @@ extern "C" {
 
     #[wasm_bindgen(method, js_name = "destroy")]
     pub fn destroy_with_callback_and_soft(this: &Plyr, callback: &Function, soft: bool);
+
+    // getter and setter
+
+    #[wasm_bindgen(method, getter = isHTML5)]
+    pub fn is_html5(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter = isEmbed)]
+    pub fn is_embed(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn playing(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn paused(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn stopped(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn ended(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn buffered(this: &Plyr) -> f32;
+
+    #[wasm_bindgen(method, getter = currentTime)]
+    pub fn current_time(this: &Plyr) -> f32;
+
+    #[wasm_bindgen(method, setter = currentTime)]
+    pub fn set_current_time(this: &Plyr, value: f32);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn seeking(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn duration(this: &Plyr) -> f32;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn volume(this: &Plyr) -> f32;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_volume(this: &Plyr, value: f32);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn muted(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_muted(this: &Plyr, value: bool);
+
+    #[wasm_bindgen(method, getter = hasAudio)]
+    pub fn has_audio(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn speed(this: &Plyr) -> f32;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_speed(this: &Plyr, value: f32);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn quality(this: &Plyr) -> u32;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_quality(this: &Plyr, value: u32);
+
+    #[wasm_bindgen(method, getter = loop)]
+    pub fn loop_(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_loop(this: &Plyr, value: bool);
+
+    // #[wasm_bindgen(method, getter = source)]
+    // pub fn source_jsvalue(this: &Plyr) -> JsValue;
+
+    #[wasm_bindgen(method, setter = source)]
+    pub fn set_source_jsvalue(this: &Plyr, source: &JsValue);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn poster(this: &Plyr) -> String;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_poster(this: &Plyr, value: &str);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn autoplay(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_autoplay(this: &Plyr, value: bool);
+
+    #[wasm_bindgen(method, getter = currentTrack)]
+    pub fn current_track(this: &Plyr) -> usize;
+
+    #[wasm_bindgen(method, setter = currentTrack)]
+    pub fn set_current_track(this: &Plyr, value: usize);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn language(this: &Plyr) -> String;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_language(this: &Plyr, value: &str);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn pip(this: &Plyr) -> bool;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_pip(this: &Plyr, value: bool);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn ratio(this: &Plyr) -> Option<String>;
+
+    #[wasm_bindgen(method, setter)]
+    pub fn set_ratio(this: &Plyr, value: String);
+
+    // -------------------------------------------------------------------------------------------------
+    // Fullscreen
+    #[wasm_bindgen(js_namespace = ["Plyr"])]
+    #[doc = "Plyr.FullscreenControl"]
+    pub type FullscreenControl;
+
 }
 
 impl Plyr {
@@ -113,6 +233,12 @@ impl Plyr {
     pub fn set_preview_thumbnails(&self, options: &PreviewThumbnailsOptions) {
         let js_value = serde_wasm_bindgen::to_value(options)
             .expect("PreviewThumbnailsOptions failed serialization");
-        Plyr::set_preview_thumbnails_jsvalue(&self, &js_value);
+        self.set_preview_thumbnails_jsvalue(&js_value);
+    }
+
+    pub fn set_source(&self, source: SourceInfo) {
+        let js_value =
+            serde_wasm_bindgen::to_value(&source).expect("SourceInfo failed serialization");
+        self.set_source_jsvalue(&js_value);
     }
 }

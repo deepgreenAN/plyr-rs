@@ -1,4 +1,4 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 
 // -------------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ pub struct PlyrOptions {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub duration: Option<Option<i32>>,
+    pub duration: Option<Option<f32>>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
@@ -146,7 +146,7 @@ pub struct PlyrOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// KeyBoardOpts
+// KeyBoardOptions
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
 pub struct KeyBoardOptions {
@@ -160,7 +160,7 @@ pub struct KeyBoardOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// ToolTipOpts
+// ToolTipOptions
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
 pub struct ToolTipOptions {
@@ -174,7 +174,7 @@ pub struct ToolTipOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// CaptionOpts
+// CaptionOptions
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
 pub struct CaptionOptions {
@@ -192,7 +192,7 @@ pub struct CaptionOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// FullscreenOpts
+// FullscreenOptions
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
 #[serde(rename_all = "camelCase")]
@@ -219,7 +219,7 @@ pub struct FullscreenOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// StorageOpts
+// StorageOptions
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
 pub struct StorageOptions {
@@ -233,7 +233,7 @@ pub struct StorageOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// SpeedOpts
+// SpeedOptions
 
 #[derive(TypedBuilder, Serialize, Debug)]
 pub struct SpeedOptions {
@@ -242,7 +242,7 @@ pub struct SpeedOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// QualityOpts
+// QualityOptions
 
 #[derive(TypedBuilder, Serialize, Debug)]
 pub struct QualityOptions {
@@ -256,7 +256,7 @@ pub struct QualityOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// LoopOpts
+// LoopOptions
 
 #[derive(TypedBuilder, Serialize, Debug)]
 pub struct LoopOptions {
@@ -264,7 +264,7 @@ pub struct LoopOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// AdOpts
+// AdOptions
 
 #[derive(TypedBuilder, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -281,9 +281,9 @@ pub struct AdOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// PreviewThumbnails
+// PreviewThumbnailsOptions
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Deserialize, Debug)]
 pub struct PreviewThumbnailsOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
@@ -295,7 +295,7 @@ pub struct PreviewThumbnailsOptions {
 }
 
 // -------------------------------------------------------------------------------------------------
-// MediaMetadataOpts
+// MediaMetadataOptions
 
 #[derive(TypedBuilder, Serialize, Debug)]
 pub struct MediaMetadataOptions {
@@ -329,7 +329,7 @@ pub struct MediaMetadataArtwork {
 }
 
 // -------------------------------------------------------------------------------------------------
-// MarkerOpts
+// MarkerOptions
 
 #[derive(TypedBuilder, Serialize, Debug)]
 pub struct MarkerOptions {
