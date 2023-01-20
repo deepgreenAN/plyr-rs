@@ -1,0 +1,22 @@
+{
+  "name": "webpack_js_template",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "author": "",
+  "license": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server"
+  },
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "plyr": "^3.7.3"
+  }
+}
