@@ -1,10 +1,12 @@
 pub mod options;
+pub mod plyr;
 pub mod source;
 
 use serde::Serialize;
 use strum_macros::Display;
 
-pub use options::PlyrOpts;
+pub use options::PlyrOptions;
+pub use plyr::Plyr;
 // -------------------------------------------------------------------------------------------------
 // Provider
 

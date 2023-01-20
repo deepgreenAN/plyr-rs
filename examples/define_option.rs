@@ -1,7 +1,7 @@
-use plyr_rs::options::PlyrOpts;
+use plyr_rs::options::PlyrOptions;
 
 fn main() {
-    let opts = PlyrOpts::builder()
+    let opts = PlyrOptions::builder()
         .controls(vec!["play".to_string()])
         .build();
     println!("options: {:?}", opts);

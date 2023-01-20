@@ -7,7 +7,7 @@ use typed_builder::TypedBuilder;
 /// Plyrのオプション
 #[derive(TypedBuilder, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct PlyrOpts {
+pub struct PlyrOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub enabled: Option<bool>,
@@ -78,11 +78,11 @@ pub struct PlyrOpts {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub keybord: Option<KeyBoardOpts>,
+    pub keyboard: Option<KeyBoardOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub tooltips: Option<ToolTipOpts>,
+    pub tooltips: Option<ToolTipOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
@@ -102,11 +102,11 @@ pub struct PlyrOpts {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub captions: Option<CaptionOpts>,
+    pub captions: Option<CaptionOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub fullscreen: Option<FullscreenOpts>,
+    pub fullscreen: Option<FullscreenOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
@@ -114,42 +114,42 @@ pub struct PlyrOpts {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub strage: Option<StrageOpts>,
+    pub storage: Option<StorageOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub speed: Option<SpeedOpts>,
+    pub speed: Option<SpeedOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub quality: Option<QualityOpts>,
+    pub quality: Option<QualityOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none", rename = "loop")]
     #[builder(default, setter(into, strip_option))]
-    pub loop_: Option<LoopOpts>,
+    pub loop_: Option<LoopOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub ads: Option<AdOpts>,
+    pub ads: Option<AdOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub preview_thumbnails: Option<PreviewThumbnailsOpts>,
+    pub preview_thumbnails: Option<PreviewThumbnailsOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub media_metadata: Option<MediaMetadataOpts>,
+    pub media_metadata: Option<MediaMetadataOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub markers: Option<MarkerOpts>,
+    pub markers: Option<MarkerOptions>,
 }
 
 // -------------------------------------------------------------------------------------------------
 // KeyBoardOpts
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
-pub struct KeyBoardOpts {
+pub struct KeyBoardOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub focused: Option<bool>,
@@ -163,7 +163,7 @@ pub struct KeyBoardOpts {
 // ToolTipOpts
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
-pub struct ToolTipOpts {
+pub struct ToolTipOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub controls: Option<bool>,
@@ -177,7 +177,7 @@ pub struct ToolTipOpts {
 // CaptionOpts
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
-pub struct CaptionOpts {
+pub struct CaptionOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub active: Option<bool>,
@@ -196,7 +196,7 @@ pub struct CaptionOpts {
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
 #[serde(rename_all = "camelCase")]
-pub struct FullscreenOpts {
+pub struct FullscreenOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub enabled: Option<bool>,
@@ -219,10 +219,10 @@ pub struct FullscreenOpts {
 }
 
 // -------------------------------------------------------------------------------------------------
-// StrageOpts
+// StorageOpts
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
-pub struct StrageOpts {
+pub struct StorageOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub enabled: Option<bool>,
@@ -236,7 +236,7 @@ pub struct StrageOpts {
 // SpeedOpts
 
 #[derive(TypedBuilder, Serialize, Debug)]
-pub struct SpeedOpts {
+pub struct SpeedOptions {
     pub selected: f32,
     pub options: Vec<f32>,
 }
@@ -245,7 +245,7 @@ pub struct SpeedOpts {
 // QualityOpts
 
 #[derive(TypedBuilder, Serialize, Debug)]
-pub struct QualityOpts {
+pub struct QualityOptions {
     pub default: u32,
 
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -259,7 +259,7 @@ pub struct QualityOpts {
 // LoopOpts
 
 #[derive(TypedBuilder, Serialize, Debug)]
-pub struct LoopOpts {
+pub struct LoopOptions {
     pub active: bool,
 }
 
@@ -268,7 +268,7 @@ pub struct LoopOpts {
 
 #[derive(TypedBuilder, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct AdOpts {
+pub struct AdOptions {
     pub enabled: bool,
 
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -284,7 +284,7 @@ pub struct AdOpts {
 // PreviewThumbnails
 
 #[derive(TypedBuilder, Serialize, Debug)]
-pub struct PreviewThumbnailsOpts {
+pub struct PreviewThumbnailsOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub enabled: Option<bool>,
@@ -298,7 +298,7 @@ pub struct PreviewThumbnailsOpts {
 // MediaMetadataOpts
 
 #[derive(TypedBuilder, Serialize, Debug)]
-pub struct MediaMetadataOpts {
+pub struct MediaMetadataOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
     pub title: Option<String>,
@@ -332,7 +332,7 @@ pub struct MediaMetadataArtwork {
 // MarkerOpts
 
 #[derive(TypedBuilder, Serialize, Debug)]
-pub struct MarkerOpts {
+pub struct MarkerOptions {
     pub enabled: bool,
     pub points: Vec<MarkersPoints>,
 }

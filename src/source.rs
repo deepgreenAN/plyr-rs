@@ -1,4 +1,4 @@
-use crate::options::PreviewThumbnailsOpts;
+use crate::options::PreviewThumbnailsOptions;
 use crate::{MediaType, Provider};
 
 use serde::Serialize;
@@ -81,5 +81,5 @@ pub struct SourceInfo {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(into, strip_option))]
-    pub preview_thumbnails: Option<PreviewThumbnailsOpts>,
+    pub preview_thumbnails: Option<PreviewThumbnailsOptions>,
 }
