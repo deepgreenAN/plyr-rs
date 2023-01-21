@@ -4,7 +4,8 @@ use crate::source::SourceInfo;
 use js_sys::Function;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(module = "/dist/main.js")]
+#[cfg_attr(feature = "cdn", wasm_bindgen(module = "/dist_cdn/main.js"))]
+#[cfg_attr(not(feature = "cdn"), wasm_bindgen(module = "/dist/main.js"))]
 extern "C" {
     // -------------------------------------------------------------------------------------------------
     // Plyr
@@ -12,8 +13,7 @@ extern "C" {
     #[doc = "The Plyr class"]
     pub type Plyr;
 
-    // method
-
+    // constructor
     #[wasm_bindgen(constructor)]
     #[doc = "Plyr constructor"]
     pub fn new(css_selector: &str) -> Plyr;
@@ -21,87 +21,6 @@ extern "C" {
     #[wasm_bindgen(constructor)]
     #[doc = "Plyr constructor with options"]
     pub fn new_with_jsvalue(css_selector: &str, opts: &JsValue) -> Plyr;
-
-    #[wasm_bindgen(method)]
-    pub fn play(this: &Plyr);
-
-    #[wasm_bindgen(method)]
-    pub fn pause(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "togglePlay")]
-    pub fn toggle_play(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "togglePlay")]
-    pub fn toggle_play_with_toggle(this: &Plyr, toggle: bool);
-
-    #[wasm_bindgen(method)]
-    pub fn stop(this: &Plyr);
-
-    #[wasm_bindgen(method)]
-    pub fn restart(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "rewind")]
-    pub fn rewind_with_seek_time(this: &Plyr, seek_time: u32);
-
-    #[wasm_bindgen(method)]
-    pub fn rewind(this: &Plyr);
-
-    #[wasm_bindgen(method)]
-    pub fn forward(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "forward")]
-    pub fn forward_with_seek_time(this: &Plyr, seek_time: u32);
-
-    #[wasm_bindgen(method, js_name = "increaseVolume")]
-    pub fn increase_volume(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "increaseVolume")]
-    pub fn increase_volume_with_step(this: &Plyr, step: u32);
-
-    #[wasm_bindgen(method, js_name = "decreaseVolume")]
-    pub fn decrease_volume(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "decreaseVolume")]
-    pub fn decrease_volume_with_step(this: &Plyr, step: u32);
-
-    #[wasm_bindgen(method, js_name = "toggleCaptions")]
-    pub fn toggle_captions(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "toggleCaptions")]
-    pub fn toggle_captions_with_toggle(this: &Plyr, toggle: bool);
-
-    #[wasm_bindgen(method)]
-    pub fn airplay(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "setPreviewThumbnails")]
-    pub fn set_preview_thumbnails_jsvalue(this: &Plyr, source: &JsValue);
-
-    #[wasm_bindgen(method, js_name = "toggleControls")]
-    pub fn toggle_controls(this: &Plyr, toggle: bool);
-
-    #[wasm_bindgen(method)]
-    pub fn on(this: &Plyr, event: &str, function: &Function);
-
-    #[wasm_bindgen(method)]
-    pub fn once(this: &Plyr, event: &str, function: &Function);
-
-    #[wasm_bindgen(method)]
-    pub fn off(this: &Plyr, event: &str, function: &Function);
-
-    #[wasm_bindgen(method)]
-    pub fn supports(this: &Plyr, supports_type: &str) -> bool;
-
-    #[wasm_bindgen(method)]
-    pub fn destroy(this: &Plyr);
-
-    #[wasm_bindgen(method, js_name = "destroy")]
-    pub fn destroy_with_callback(this: &Plyr, callback: &Function);
-
-    #[wasm_bindgen(method, js_name = "destroy")]
-    pub fn destroy_with_soft(this: &Plyr, soft: bool);
-
-    #[wasm_bindgen(method, js_name = "destroy")]
-    pub fn destroy_with_callback_and_soft(this: &Plyr, callback: &Function, soft: bool);
 
     // getter and setter
 
@@ -211,7 +130,93 @@ extern "C" {
     pub fn ratio(this: &Plyr) -> Option<String>;
 
     #[wasm_bindgen(method, setter)]
-    pub fn set_ratio(this: &Plyr, value: String);
+    pub fn set_ratio(this: &Plyr, value: Option<String>);
+
+    #[wasm_bindgen(method, getter)]
+    pub fn fullscreen(this: &Plyr) -> FullscreenControl;
+
+    // method
+
+    #[wasm_bindgen(method)]
+    pub fn play(this: &Plyr);
+
+    #[wasm_bindgen(method)]
+    pub fn pause(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "togglePlay")]
+    pub fn toggle_play(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "togglePlay")]
+    pub fn toggle_play_with_toggle(this: &Plyr, toggle: bool);
+
+    #[wasm_bindgen(method)]
+    pub fn stop(this: &Plyr);
+
+    #[wasm_bindgen(method)]
+    pub fn restart(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "rewind")]
+    pub fn rewind_with_seek_time(this: &Plyr, seek_time: u32);
+
+    #[wasm_bindgen(method)]
+    pub fn rewind(this: &Plyr);
+
+    #[wasm_bindgen(method)]
+    pub fn forward(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "forward")]
+    pub fn forward_with_seek_time(this: &Plyr, seek_time: u32);
+
+    #[wasm_bindgen(method, js_name = "increaseVolume")]
+    pub fn increase_volume(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "increaseVolume")]
+    pub fn increase_volume_with_step(this: &Plyr, step: u32);
+
+    #[wasm_bindgen(method, js_name = "decreaseVolume")]
+    pub fn decrease_volume(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "decreaseVolume")]
+    pub fn decrease_volume_with_step(this: &Plyr, step: u32);
+
+    #[wasm_bindgen(method, js_name = "toggleCaptions")]
+    pub fn toggle_captions(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "toggleCaptions")]
+    pub fn toggle_captions_with_toggle(this: &Plyr, toggle: bool);
+
+    #[wasm_bindgen(method)]
+    pub fn airplay(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "setPreviewThumbnails")]
+    pub fn set_preview_thumbnails_jsvalue(this: &Plyr, source: &JsValue);
+
+    #[wasm_bindgen(method, js_name = "toggleControls")]
+    pub fn toggle_controls(this: &Plyr, toggle: bool);
+
+    #[wasm_bindgen(method)]
+    pub fn on(this: &Plyr, event: &str, function: &Function);
+
+    #[wasm_bindgen(method)]
+    pub fn once(this: &Plyr, event: &str, function: &Function);
+
+    #[wasm_bindgen(method)]
+    pub fn off(this: &Plyr, event: &str, function: &Function);
+
+    #[wasm_bindgen(method)]
+    pub fn supports(this: &Plyr, supports_type: &str) -> bool;
+
+    #[wasm_bindgen(method)]
+    pub fn destroy(this: &Plyr);
+
+    #[wasm_bindgen(method, js_name = "destroy")]
+    pub fn destroy_with_callback(this: &Plyr, callback: &Function);
+
+    #[wasm_bindgen(method, js_name = "destroy")]
+    pub fn destroy_with_soft(this: &Plyr, soft: bool);
+
+    #[wasm_bindgen(method, js_name = "destroy")]
+    pub fn destroy_with_callback_and_soft(this: &Plyr, callback: &Function, soft: bool);
 
     // -------------------------------------------------------------------------------------------------
     // Fullscreen
@@ -219,6 +224,20 @@ extern "C" {
     #[doc = "Plyr.FullscreenControl"]
     pub type FullscreenControl;
 
+    #[wasm_bindgen(method, getter)]
+    pub fn active(this: &FullscreenControl) -> bool;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn enabled(this: &FullscreenControl) -> bool;
+
+    #[wasm_bindgen(method)]
+    pub fn enter(this: &FullscreenControl);
+
+    #[wasm_bindgen(method)]
+    pub fn exit(this: &FullscreenControl);
+
+    #[wasm_bindgen(method)]
+    pub fn toggle(this: &FullscreenControl);
 }
 
 impl Plyr {

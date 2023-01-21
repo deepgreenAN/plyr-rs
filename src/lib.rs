@@ -1,4 +1,3 @@
-pub mod events;
 pub mod options;
 pub mod plyr;
 pub mod source;

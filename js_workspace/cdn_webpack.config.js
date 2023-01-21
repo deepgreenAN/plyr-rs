@@ -1,18 +1,22 @@
 const path = require('path');
 
 module.exports = {
-    // mode: 'production',
-    mode: 'development',
+    mode: 'production',
+    //mode: 'development',
 	entry: './src/index.js',
+	experiments: {
+		outputModule: true,
+	},
 	output: {
 		path: path.resolve(__dirname, '../dist_cdn'),
-		filename: 'main.js'
+		filename: 'main.js',
+		library: {
+			type: 'module',
+		},
 	},
+	externalsType: 'global',
+	// externalsType: 'window', // こちらでもよい
     externals: {
-        plyr: "plyr"
+        plyr: "Plyr"
     }
-	// devServer: {
-	// 	static: './../js_dist'
-	// },
-    // devtool: 'inline-source-map',
 };

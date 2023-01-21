@@ -1,4 +1,4 @@
-use plyr_rs::options::PlyrOptions;
+use plyr::options::PlyrOptions;
 
 fn main() {
     let opts = PlyrOptions::builder()
