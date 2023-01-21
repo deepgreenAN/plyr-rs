@@ -3,6 +3,7 @@ use crate::source::SourceInfo;
 
 use js_sys::Function;
 use wasm_bindgen::prelude::*;
+use web_sys::HtmlElement;
 
 #[cfg_attr(feature = "cdn", wasm_bindgen(module = "/dist_cdn/main.js"))]
 #[cfg_attr(not(feature = "cdn"), wasm_bindgen(module = "/dist/main.js"))]
@@ -15,12 +16,23 @@ extern "C" {
 
     // constructor
     #[wasm_bindgen(constructor)]
-    #[doc = "Plyr constructor"]
+    #[doc = "Plyr constructor with selector"]
     pub fn new(css_selector: &str) -> Plyr;
 
     #[wasm_bindgen(constructor)]
     #[doc = "Plyr constructor with options"]
-    pub fn new_with_jsvalue(css_selector: &str, opts: &JsValue) -> Plyr;
+    pub fn new_with_options_jsvalue(css_selector: &str, options: &JsValue) -> Plyr;
+
+    #[wasm_bindgen(constructor)]
+    #[doc = "Plyr constructor with element"]
+    pub fn new_with_element_jsvalue(element_jsvalue: &JsValue) -> Plyr;
+
+    #[wasm_bindgen(constructor)]
+    #[doc = "Plyr constructor with element and options"]
+    pub fn new_with_element_jsvalue_and_options_jsvalue(
+        element_jsvalue: &JsValue,
+        options: &JsValue,
+    ) -> Plyr;
 
     // getter and setter
 
@@ -243,9 +255,24 @@ extern "C" {
 impl Plyr {
     /// Plyr Constructor with PlyrOptions
     pub fn new_with_options(css_selector: &str, options: &PlyrOptions) -> Plyr {
-        let js_value =
+        let options_js_value =
             serde_wasm_bindgen::to_value(options).expect("PlyrOptions failed serialization");
-        Plyr::new_with_jsvalue(css_selector, &js_value)
+        Plyr::new_with_options_jsvalue(css_selector, &options_js_value)
+    }
+
+    /// Plyr Constructor with HtmlElement
+    pub fn new_with_html_element(html_element: &HtmlElement) -> Plyr {
+        Plyr::new_with_element_jsvalue(html_element.as_ref())
+    }
+
+    /// Plyr Constructor with HtmlElement and PlyrOptions
+    pub fn new_with_html_element_and_options(
+        html_element: &HtmlElement,
+        options: &PlyrOptions,
+    ) -> Plyr {
+        let options_js_value =
+            serde_wasm_bindgen::to_value(options).expect("PlyrOptions failed serialization");
+        Plyr::new_with_element_jsvalue_and_options_jsvalue(html_element.as_ref(), &options_js_value)
     }
 
     /// Plyr.setPreviewThumbnails with PreviewThumbnailsOptions
