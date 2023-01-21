@@ -1,4 +1,5 @@
-# dioxusのテンプレート(最適化済み)
+# Plyr dioxus example
+
 ```
 trunk serve --release
 ```

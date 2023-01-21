@@ -5,27 +5,16 @@ use dioxus::prelude::*;
 use plyr::Plyr;
 
 #[inline_props]
-fn PlyrFrame(cx: Scope) -> Element {
-    let id = "player".to_string();
-
+fn PlyrFrame(cx: Scope, id: String) -> Element {
     let player_state = {
-        let mut id = id.clone();
-        id.insert_str(0, "#");
-        use_future(&cx, (), |_| async move { Plyr::new(&id) })
+        let mut selector = "#".to_string();
+        selector.push_str(&id);
+        use_future(
+            &cx,
+            &selector,
+            |selector| async move { Plyr::new(&selector) },
+        )
     };
-
-    let fullscren = move |_| {
-        player_state.value().unwrap().fullscreen().enter();
-    };
-
-    let play = move |_| {
-        player_state.value().unwrap().play();
-    };
-
-    let pause = move |_| {
-        player_state.value().unwrap().pause();
-    };
-
     cx.render(rsx! {
         div { class: "plyr__video-embed", id:"{id}", width: "400px",
             iframe {
@@ -35,23 +24,23 @@ fn PlyrFrame(cx: Scope) -> Element {
             }
         },
         button {
-            onclick: fullscren,
-            "フルスクリーン"
+            onclick: move |_| {player_state.value().unwrap().fullscreen().enter();},
+            "fullscreen"
         },
         button {
-            onclick: play,
-            "再生"
+            onclick: move |_| {player_state.value().unwrap().play();},
+            "play"
         },
         button {
-            onclick: pause,
-            "一時停止"
+            onclick: move |_| {player_state.value().unwrap().pause();},
+            "pause"
         }
     })
 }
 
 fn App(cx: Scope) -> Element {
     cx.render(rsx! {
-        PlyrFrame{},
+        PlyrFrame{id: "player".to_string()},
     })
 }
 
