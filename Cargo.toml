@@ -6,9 +6,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
 cdn = []
+html5 = ["future"]
+future = ["dep:wasm-bindgen-futures"]
 
 [dependencies]
 wasm-bindgen = "^0.2"
+wasm-bindgen-futures = { version = "^0.4", optional = true }
 js-sys = "^0.3"
 typed-builder = "^0.11"
 serde = { version = "^1.0", features = ["derive"] }

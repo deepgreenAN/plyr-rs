@@ -70,7 +70,7 @@ extern "C" {
     pub fn supported() -> Support;
 
     #[wasm_bindgen(static_method_of=Plyr)]
-    #[doc = "Plyr.supported with media_type(jsvalue) and provider(jsvalue) and palays_inline"]
+    #[doc = "Plyr.supported with media_type(jsvalue) and provider(jsvalue) and plays_inline"]
     fn supported_with_info_jsvalues(
         media_type: &JsValue,
         provider: &JsValue,
@@ -206,6 +206,10 @@ extern "C" {
 
     #[wasm_bindgen(method)]
     pub fn play(this: &Plyr);
+
+    #[cfg(feature = "future")]
+    #[wasm_bindgen(method)]
+    pub async fn play_async(this: &Plyr);
 
     #[wasm_bindgen(method)]
     pub fn pause(this: &Plyr);
@@ -458,7 +462,7 @@ extern "C" {
     pub fn detail(this: &PlyrEvent) -> PlyrEventDetail;
 
     // -------------------------------------------------------------------------------------------------
-    // PlyeStateChangeEvent
+    // PlyrStateChangeEvent
 
     #[derive(Debug, Clone)]
     #[doc = "Type of Plyr.PlyrStateChangeEvent.detail"]

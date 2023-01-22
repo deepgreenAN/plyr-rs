@@ -123,6 +123,7 @@ impl PlyrStandardEventListener {
 // -------------------------------------------------------------------------------------------------
 // PlyrHtml5EventListener
 
+#[cfg(feature = "html5")]
 #[allow(non_camel_case_types)]
 #[derive(Debug, Clone)]
 pub enum PlyrHtml5EventType {
@@ -139,12 +140,14 @@ pub enum PlyrHtml5EventType {
     PlyrStandardEventType(PlyrStandardEventType),
 }
 
+#[cfg(feature = "html5")]
 impl From<PlyrStandardEventType> for PlyrHtml5EventType {
     fn from(standard_event_type: PlyrStandardEventType) -> Self {
         Self::PlyrStandardEventType(standard_event_type)
     }
 }
 
+#[cfg(feature = "html5")]
 impl Display for PlyrHtml5EventType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let formatted = match self {
@@ -165,10 +168,12 @@ impl Display for PlyrHtml5EventType {
 }
 
 /// EventListener for Standard and Html5 events.
+#[cfg(feature = "html5")]
 pub struct PlyrHtml5EventListener {
     base_event_listener: PlyrEventListener,
 }
 
+#[cfg(feature = "html5")]
 impl PlyrHtml5EventListener {
     pub fn new<F: FnMut(&PlyrEvent) + 'static>(
         target: &Plyr,
