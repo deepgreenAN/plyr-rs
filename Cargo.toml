@@ -15,7 +15,13 @@ serde = { version = "^1.0", features = ["derive"] }
 serde-wasm-bindgen = "^0.4"
 strum = "^0.24"
 strum_macros = "^0.24"
-web-sys = { version = "^0.3", features = ["HtmlElement"] }
+web-sys = { version = "^0.3", features = [
+    "HtmlElement",
+    "NodeList",
+    "HtmlButtonElement",
+    "CustomEvent",
+] }
+thiserror = "^1.0"
 
 
 [dev-dependencies]
