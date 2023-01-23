@@ -91,7 +91,7 @@ impl PlyrStandardEventListener {
         mut callback: F,
     ) -> Self {
         let callback =
-            move |event: &JsValue| callback(Into::<PlyrEvent>::into(event.clone()).as_ref());
+            move |event: &JsValue| callback(event.clone().unchecked_into::<PlyrEvent>().as_ref());
         Self {
             base_event_listener: PlyrEventListener::new(
                 target,
@@ -106,7 +106,7 @@ impl PlyrStandardEventListener {
         callback: F,
     ) -> Self {
         let callback =
-            move |event: &JsValue| callback(Into::<PlyrEvent>::into(event.clone()).as_ref());
+            move |event: &JsValue| callback(event.clone().unchecked_into::<PlyrEvent>().as_ref());
         Self {
             base_event_listener: PlyrEventListener::once(
                 target,
@@ -181,8 +181,9 @@ impl PlyrHtml5EventListener {
         mut callback: F,
     ) -> Result<Self, PlyrError> {
         if let Provider::html5 = target.provider() {
-            let callback =
-                move |event: &JsValue| callback(Into::<PlyrEvent>::into(event.clone()).as_ref());
+            let callback = move |event: &JsValue| {
+                callback(event.clone().unchecked_into::<PlyrEvent>().as_ref())
+            };
             Ok(Self {
                 base_event_listener: PlyrEventListener::new(
                     target,
@@ -200,8 +201,9 @@ impl PlyrHtml5EventListener {
         callback: F,
     ) -> Result<Self, PlyrError> {
         if let Provider::html5 = target.provider() {
-            let callback =
-                move |event: &JsValue| callback(Into::<PlyrEvent>::into(event.clone()).as_ref());
+            let callback = move |event: &JsValue| {
+                callback(event.clone().unchecked_into::<PlyrEvent>().as_ref())
+            };
             Ok(Self {
                 base_event_listener: PlyrEventListener::once(
                     target,
@@ -258,8 +260,9 @@ impl PlyrYoutubeEventListener {
         mut callback: F,
     ) -> Result<Self, PlyrError> {
         if let Provider::youtube = target.provider() {
-            let callback =
-                move |event: &JsValue| callback(Into::<PlyrEvent>::into(event.clone()).as_ref());
+            let callback = move |event: &JsValue| {
+                callback(event.clone().unchecked_into::<PlyrEvent>().as_ref())
+            };
             Ok(Self {
                 base_event_listener: PlyrEventListener::new(
                     target,
@@ -277,8 +280,9 @@ impl PlyrYoutubeEventListener {
         callback: F,
     ) -> Result<Self, PlyrError> {
         if let Provider::youtube = target.provider() {
-            let callback =
-                move |event: &JsValue| callback(Into::<PlyrEvent>::into(event.clone()).as_ref());
+            let callback = move |event: &JsValue| {
+                callback(event.clone().unchecked_into::<PlyrEvent>().as_ref())
+            };
             Ok(Self {
                 base_event_listener: PlyrEventListener::once(
                     target,
@@ -296,7 +300,12 @@ impl PlyrYoutubeEventListener {
     ) -> Result<Self, PlyrError> {
         if let Provider::youtube = target.provider() {
             let callback = move |event: &JsValue| {
-                callback(Into::<PlyrStateChangeEvent>::into(event.clone()).as_ref())
+                callback(
+                    event
+                        .clone()
+                        .unchecked_into::<PlyrStateChangeEvent>()
+                        .as_ref(),
+                )
             };
             Ok(Self {
                 base_event_listener: PlyrEventListener::new(
@@ -315,7 +324,12 @@ impl PlyrYoutubeEventListener {
     ) -> Result<Self, PlyrError> {
         if let Provider::youtube = target.provider() {
             let callback = move |event: &JsValue| {
-                callback(Into::<PlyrStateChangeEvent>::into(event.clone()).as_ref())
+                callback(
+                    event
+                        .clone()
+                        .unchecked_into::<PlyrStateChangeEvent>()
+                        .as_ref(),
+                )
             };
             Ok(Self {
                 base_event_listener: PlyrEventListener::once(
