@@ -208,7 +208,7 @@ extern "C" {
     pub fn play(this: &Plyr);
 
     #[cfg(feature = "future")]
-    #[wasm_bindgen(method)]
+    #[wasm_bindgen(method, js_name = "play")]
     pub async fn play_async(this: &Plyr);
 
     #[wasm_bindgen(method)]
