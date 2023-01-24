@@ -49,9 +49,9 @@ fn PlyrFrame() -> Html {
             allow="autoplay"
             ></iframe>
         </div>
-        <button onclick={fullscreen}>{"フルスクリーン"}</button>
-        <button onclick={play}>{"再生"}</button>
-        <button onclick={pause}>{"一時停止"}</button>
+        <button onclick={fullscreen}>{"fullscreen"}</button>
+        <button onclick={play}>{"play"}</button>
+        <button onclick={pause}>{"pause"}</button>
         </>
     }
 }
