@@ -1,22 +1,28 @@
 pub mod error;
 pub mod events;
-pub mod options;
 pub mod plyr;
+
+#[cfg(feature = "options")]
+pub mod options;
+
+#[cfg(feature = "options")]
 pub mod source;
 
+#[cfg(feature = "options")]
 use serde::{Deserialize, Serialize};
+
 use strum_macros::{Display, EnumString};
 
 pub use error::Error;
-pub use options::PlyrOptions;
 pub use plyr::Plyr;
 // -------------------------------------------------------------------------------------------------
 // Provider
 
 /// plyr.Provider
 #[allow(non_camel_case_types)]
-#[derive(Serialize, Deserialize, Clone, Debug, Display, EnumString)]
-#[serde(into = "String", try_from = "String")]
+#[derive(Clone, Debug, Display, EnumString)]
+#[cfg_attr(feature = "options", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "options", serde(into = "String", try_from = "String"))]
 pub enum Provider {
     html5,
     youtube,
@@ -43,8 +49,9 @@ impl TryFrom<String> for Provider {
 
 /// plyr.MediaType
 #[allow(non_camel_case_types)]
-#[derive(Serialize, Deserialize, Clone, Display, Debug, EnumString)]
-#[serde(into = "String", try_from = "String")]
+#[derive(Clone, Display, Debug, EnumString)]
+#[cfg_attr(feature = "options", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "options", serde(into = "String", try_from = "String"))]
 pub enum MediaType {
     audio,
     video,

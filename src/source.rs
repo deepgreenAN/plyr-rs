@@ -13,15 +13,15 @@ pub struct Source {
     pub src: String,
 
     #[serde(skip_serializing_if = "Option::is_none", rename = "type", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub type_: Option<String>,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub provider: Option<Provider>,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub size: Option<u32>,
 }
 
@@ -58,13 +58,13 @@ pub struct Track {
     pub label: String,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub src_lang: Option<String>,
 
     pub src: String,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub default: Option<bool>,
 }
 
@@ -75,20 +75,20 @@ pub struct SourceInfo {
     pub type_: MediaType,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub title: Option<String>,
 
     pub sources: Vec<Source>,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub poster: Option<String>,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub tracks: Option<Vec<Track>>,
 
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    #[builder(default, setter(into, strip_option))]
+    #[builder(default, setter(strip_option))]
     pub preview_thumbnails: Option<PreviewThumbnailsOptions>,
 }

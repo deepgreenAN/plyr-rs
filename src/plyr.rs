@@ -1,5 +1,9 @@
+#[cfg(feature = "options")]
 use crate::options::{PlyrOptions, PreviewThumbnailsOptions};
+
+#[cfg(feature = "options")]
 use crate::source::SourceInfo;
+
 use crate::{MediaType, Provider};
 
 use js_sys::Function;
@@ -22,16 +26,16 @@ extern "C" {
 
     #[wasm_bindgen(constructor)]
     #[doc = "Plyr constructor with options(jsvalue)"]
-    fn new_with_options_jsvalue(css_selector: &str, options: &JsValue) -> Plyr;
+    pub fn new_with_options_jsvalue(css_selector: &str, options: &JsValue) -> Plyr;
 
     #[wasm_bindgen(constructor)]
-    #[doc = "Plyr constructor with element(jsvalue)"]
-    fn new_with_element_jsvalue(element_jsvalue: &JsValue) -> Plyr;
+    #[doc = "Plyr constructor with html element"]
+    pub fn new_with_html_element(html_element: &HtmlElement) -> Plyr;
 
     #[wasm_bindgen(constructor)]
-    #[doc = "Plyr constructor with element and options(jsvalue)"]
-    fn new_with_element_jsvalue_and_options_jsvalue(
-        element_jsvalue: &JsValue,
+    #[doc = "Plyr constructor with html element and options(jsvalue)"]
+    pub fn new_with_html_element_and_options_jsvalue(
+        html_element: &HtmlElement,
         options: &JsValue,
     ) -> Plyr;
 
@@ -41,27 +45,27 @@ extern "C" {
 
     #[wasm_bindgen(static_method_of=Plyr, js_name="setup")]
     #[doc = "Plyr.setup with css selector and options(jsvalue)"]
-    fn setup_with_options_jsvalue(css_selector: &str, options: &JsValue) -> Vec<Plyr>;
+    pub fn setup_with_options_jsvalue(css_selector: &str, options: &JsValue) -> Vec<Plyr>;
 
     #[wasm_bindgen(static_method_of=Plyr, js_name="setup")]
-    #[doc = "Plyr.setup with html_elements(Vec<JsValue>)"]
-    fn setup_with_html_elements_jsvalue(html_elements: Vec<JsValue>) -> Vec<Plyr>;
+    #[doc = "Plyr.setup with html_elements"]
+    pub fn setup_with_html_elements(html_elements: Vec<HtmlElement>) -> Vec<Plyr>;
 
     #[wasm_bindgen(static_method_of=Plyr, js_name="setup")]
-    #[doc = "Plyr.setup with html_elements(vector of jsvalue) and Options(jsvalue)"]
-    fn setup_with_html_elements_jsvalue_and_options_jsvalue(
-        html_elements: Vec<JsValue>,
+    #[doc = "Plyr.setup with html_elements and options(jsvalue)"]
+    pub fn setup_with_html_elements_and_options_jsvalue(
+        html_elements: Vec<HtmlElement>,
         options: &JsValue,
     ) -> Vec<Plyr>;
 
     #[wasm_bindgen(static_method_of=Plyr, js_name="setup")]
-    #[doc = "Plyr.setup with node_list(jsvalue)"]
-    fn setup_with_node_list_jsvalue(node_list: &JsValue) -> Vec<Plyr>;
+    #[doc = "Plyr.setup with node_list"]
+    pub fn setup_with_node_list(node_list: &NodeList) -> Vec<Plyr>;
 
     #[wasm_bindgen(static_method_of=Plyr, js_name="setup")]
-    #[doc = "Plyr.setup with node_list(jsvalue) and options(jsvalue)"]
-    fn setup_with_node_list_jsvalue_and_options_jsvalue(
-        node_list: &JsValue,
+    #[doc = "Plyr.setup with node_list and options(jsvalue)"]
+    pub fn setup_with_node_list_and_options_jsvalue(
+        node_list: &NodeList,
         options: &JsValue,
     ) -> Vec<Plyr>;
 
@@ -71,11 +75,8 @@ extern "C" {
 
     #[wasm_bindgen(static_method_of=Plyr)]
     #[doc = "Plyr.supported with media_type(jsvalue) and provider(jsvalue) and plays_inline"]
-    fn supported_with_info_jsvalues(
-        media_type: &JsValue,
-        provider: &JsValue,
-        plays_inline: bool,
-    ) -> Support;
+    pub fn supported_with_info_str(media_type: &str, provider: &str, plays_inline: bool)
+        -> Support;
 
     // getter and setter
 
@@ -146,7 +147,7 @@ extern "C" {
     pub fn set_loop(this: &Plyr, value: bool);
 
     #[wasm_bindgen(method, getter = source)]
-    fn source_jsvalue(this: &Plyr) -> JsValue;
+    pub fn source_jsvalue(this: &Plyr) -> JsValue;
 
     #[wasm_bindgen(method, setter = source)]
     pub fn set_source_jsvalue(this: &Plyr, source: &JsValue);
@@ -181,8 +182,8 @@ extern "C" {
     #[wasm_bindgen(method, setter)]
     pub fn set_pip(this: &Plyr, value: bool);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn ratio(this: &Plyr) -> Option<String>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn ratio(this: &Plyr) -> Result<String, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_ratio(this: &Plyr, value: String);
@@ -196,8 +197,8 @@ extern "C" {
     #[wasm_bindgen(method, getter=provider)]
     fn provider_string(this: &Plyr) -> String;
 
-    #[wasm_bindgen(method, getter)]
-    pub fn embed(this: &Plyr) -> JsValue;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn embed(this: &Plyr) -> Result<JsValue, JsValue>;
 
     #[wasm_bindgen(method, getter)]
     pub fn fullscreen(this: &Plyr) -> FullscreenControl;
@@ -309,74 +310,74 @@ extern "C" {
     #[doc = "Plyr.Elements.buttons"]
     pub type Buttons;
 
-    #[wasm_bindgen(method, getter)]
-    pub fn airplay(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn airplay(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_airplay(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn captions(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn captions(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_captions(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn download(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn download(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_download(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter = fastForward)]
-    pub fn fast_forward(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter = fastForward, catch)]
+    pub fn fast_forward(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter = fastForward)]
     pub fn set_fast_forward(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn fullscreen(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn fullscreen(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_fullscreen(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn mute(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn mute(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_mute(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn pip(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn pip(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_pip(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter = play)]
-    pub fn play(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn play(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter = play)]
     pub fn set_play(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter = play)]
-    pub fn play_multi(this: &Buttons) -> Option<Vec<HtmlButtonElement>>;
+    #[wasm_bindgen(method, getter = play, catch)]
+    pub fn play_multi(this: &Buttons) -> Result<Vec<HtmlButtonElement>, JsValue>;
 
     #[wasm_bindgen(method, setter = play)]
     pub fn set_play_multi(this: &Buttons, buttons: Vec<HtmlButtonElement>);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn restart(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn restart(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_restart(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn rewind(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn rewind(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_rewind(this: &Buttons, button: HtmlButtonElement);
 
-    #[wasm_bindgen(method, getter)]
-    pub fn settings(this: &Buttons) -> Option<HtmlButtonElement>;
+    #[wasm_bindgen(method, getter, catch)]
+    pub fn settings(this: &Buttons) -> Result<HtmlButtonElement, JsValue>;
 
     #[wasm_bindgen(method, setter)]
     pub fn set_settings(this: &Buttons, button: HtmlButtonElement);
@@ -485,69 +486,44 @@ extern "C" {
 
 impl Plyr {
     /// Plyr Constructor with options
+    #[cfg(feature = "options")]
     pub fn new_with_options(css_selector: &str, options: &PlyrOptions) -> Plyr {
         let options_js_value =
             serde_wasm_bindgen::to_value(options).expect("PlyrOptions failed serialization");
         Plyr::new_with_options_jsvalue(css_selector, &options_js_value)
     }
 
-    /// Plyr Constructor with HtmlElement
-    pub fn new_with_html_element(html_element: &HtmlElement) -> Plyr {
-        Plyr::new_with_element_jsvalue(html_element.as_ref())
-    }
-
     /// Plyr Constructor with HtmlElement and options
+    #[cfg(feature = "options")]
     pub fn new_with_html_element_and_options(
         html_element: &HtmlElement,
         options: &PlyrOptions,
     ) -> Plyr {
         let options_js_value =
             serde_wasm_bindgen::to_value(options).expect("PlyrOptions failed serialization");
-        Plyr::new_with_element_jsvalue_and_options_jsvalue(html_element.as_ref(), &options_js_value)
-    }
-
-    /// Plyr.setup with vector of HtmlElement
-    pub fn setup_with_html_elements(html_elements: Vec<HtmlElement>) -> Vec<Plyr> {
-        let html_elements_jsvalue: Vec<JsValue> = html_elements
-            .into_iter()
-            .map(|element| element.into())
-            .collect();
-        Plyr::setup_with_html_elements_jsvalue(html_elements_jsvalue)
+        Plyr::new_with_html_element_and_options_jsvalue(html_element, &options_js_value)
     }
 
     /// Plyr.setup with Vec<HtmlElement> and PlyrOptions
+    #[cfg(feature = "options")]
     pub fn setup_with_html_elements_and_options(
         html_elements: Vec<HtmlElement>,
         options: &PlyrOptions,
     ) -> Vec<Plyr> {
-        let html_elements_jsvalue: Vec<JsValue> = html_elements
-            .into_iter()
-            .map(|element| element.into())
-            .collect();
         let options_js_value =
             serde_wasm_bindgen::to_value(options).expect("PlyrOptions failed serialization");
-        Plyr::setup_with_html_elements_jsvalue_and_options_jsvalue(
-            html_elements_jsvalue,
-            &options_js_value,
-        )
-    }
-
-    /// Plyr.setup with NodeList
-    pub fn setup_with_node_list(node_list: &NodeList) -> Vec<Plyr> {
-        Plyr::setup_with_node_list_jsvalue(node_list.as_ref())
+        Plyr::setup_with_html_elements_and_options_jsvalue(html_elements, &options_js_value)
     }
 
     /// Plyr.setup with NodeList and options
+    #[cfg(feature = "options")]
     pub fn setup_with_node_list_and_options(
         node_list: &NodeList,
         options: &PlyrOptions,
     ) -> Vec<Plyr> {
         let options_js_value =
             serde_wasm_bindgen::to_value(options).expect("PlyrOptions failed serialization");
-        Plyr::setup_with_node_list_jsvalue_and_options_jsvalue(
-            node_list.as_ref(),
-            &options_js_value,
-        )
+        Plyr::setup_with_node_list_and_options_jsvalue(node_list, &options_js_value)
     }
 
     /// Plyr.supported
@@ -556,11 +532,7 @@ impl Plyr {
         provider: &Provider,
         plays_inline: bool,
     ) -> Support {
-        let media_type_jsvalue =
-            serde_wasm_bindgen::to_value(media_type).expect("MediaType failed serialization");
-        let provider_jsvalue =
-            serde_wasm_bindgen::to_value(provider).expect("Provider failed serialization");
-        Plyr::supported_with_info_jsvalues(&media_type_jsvalue, &provider_jsvalue, plays_inline)
+        Plyr::supported_with_info_str(&media_type.to_string(), &provider.to_string(), plays_inline)
     }
 
     /// Plyr.provider
@@ -571,6 +543,7 @@ impl Plyr {
     }
 
     /// Plyr.setPreviewThumbnails with PreviewThumbnailsOptions
+    #[cfg(feature = "options")]
     pub fn set_preview_thumbnails(&self, options: &PreviewThumbnailsOptions) {
         let js_value = serde_wasm_bindgen::to_value(options)
             .expect("PreviewThumbnailsOptions failed serialization");
@@ -578,12 +551,14 @@ impl Plyr {
     }
 
     /// get Plyr.source
+    #[cfg(feature = "options")]
     pub fn source(&self) -> SourceInfo {
         serde_wasm_bindgen::from_value(self.source_jsvalue())
             .expect("SourceInfo failed deserialization")
     }
 
     /// set Plyr.source
+    #[cfg(feature = "options")]
     pub fn set_source(&self, source: &SourceInfo) {
         let js_value =
             serde_wasm_bindgen::to_value(source).expect("SourceInfo failed serialization");
@@ -599,11 +574,23 @@ impl Buttons {
     }
 }
 
+impl Default for Buttons {
+    fn default() -> Self {
+        Buttons::new()
+    }
+}
+
 impl Elements {
     /// Elements constructor. Internally js empty object created.
     pub fn new() -> Elements {
         let js_value_default = JsValue::default();
         js_value_default.into()
+    }
+}
+
+impl Default for Elements {
+    fn default() -> Self {
+        Elements::new()
     }
 }
 
