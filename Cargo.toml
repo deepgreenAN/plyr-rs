@@ -1,6 +1,6 @@
 [package]
 name = "plyr"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 authors = ["Asami <asami73dgreen63@gmail.com>"]
 description = "Rust bindings for plyr"
