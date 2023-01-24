@@ -45,8 +45,8 @@ fn main() {
 }
 ```
 
-## Cdn
-You can uee the cdn for reducing the bundle size of js snippets.
+## CDN
+You can use the cdn for reducing the bundle size of js snippets.
 ```html
 <script src="https://cdn.plyr.io/3.7.3/plyr.polyfilled.js"></script>
 ```
@@ -62,4 +62,5 @@ plyr = { git = "https://github.com/deepgreenAN/plyr-rs", features = ["cdn"]}
 - [sycamore example](https://github.com/deepgreenAN/plyr-rs/tree/master/examples/plyr-sycamore-example)
 - [leptos example](https://github.com/deepgreenAN/plyr-rs/tree/master/examples/plyr-leptos-example)
 - [event listener example](https://github.com/deepgreenAN/plyr-rs/tree/master/examples/event-listener-example)
+
 Check [examples](https://github.com/deepgreenAN/plyr-rs/tree/master/examples) directory for other examples.
