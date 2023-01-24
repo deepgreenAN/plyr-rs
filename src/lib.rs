@@ -1,10 +1,27 @@
+//!
+//! # Plyr-rs
+//! Rust binding for [Plyr](https://github.com/sampotts/plyr).
+//!
+//! ## Example
+//! ```rust
+//! use plyr::Plyr;
+//!
+//! let player = Plyr::new("#player");
+//! ```
+//!
+
+/// This module defines the Error used in this crate.
 pub mod error;
+/// This module contains event listeners for Standard, Html5, and Youtube.
 pub mod events;
+/// This module contains `Plyr` type and other information enum type.
 pub mod plyr;
 
+/// This module contains `Options` type like `Plyr.Options` of original Js library.  *This module requires the following crate features to be activated: `options`*
 #[cfg(feature = "options")]
 pub mod options;
 
+/// This module contains `Source` type like `Plyr.Source` of original Js library. *This module requires the following crate features to be activated: `options`*
 #[cfg(feature = "options")]
 pub mod source;
 
@@ -15,10 +32,13 @@ use strum_macros::{Display, EnumString};
 
 pub use error::Error;
 pub use plyr::Plyr;
+
+#[cfg(feature = "options")]
+pub use options::PlyrOptions;
 // -------------------------------------------------------------------------------------------------
 // Provider
 
-/// plyr.Provider
+/// enum like Plyr.Provider
 #[allow(non_camel_case_types)]
 #[derive(Clone, Debug, Display, EnumString)]
 #[cfg_attr(feature = "options", derive(Serialize, Deserialize))]
@@ -47,7 +67,7 @@ impl TryFrom<String> for Provider {
 // -------------------------------------------------------------------------------------------------
 // MediaType
 
-/// plyr.MediaType
+/// enum like Plyr.MediaType
 #[allow(non_camel_case_types)]
 #[derive(Clone, Display, Debug, EnumString)]
 #[cfg_attr(feature = "options", derive(Serialize, Deserialize))]

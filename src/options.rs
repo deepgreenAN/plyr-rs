@@ -1,10 +1,23 @@
+//!
+//! PlyrOptions is a type used as an options for Plyr argument. To allow for `undefined`, the builder pattern can be used for creation. *This module requires the following crate features to be activated: `options`*
+//!
+//! ## Examples
+//!
+//! ```rust
+//! use plyr::options::PlyrOptions;
+//! use plyr::Plyr;
+//!
+//! let options = PlyrOptions::builder().duration(50.0).build();
+//! let player = Plyr::new_with_options("#player", &options);
+//! ```
+
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 
 // -------------------------------------------------------------------------------------------------
 // PlyrOpts
 
-/// Plyrのオプション
+/// The options type like Plyr.Options.
 #[derive(TypedBuilder, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct PlyrOptions {

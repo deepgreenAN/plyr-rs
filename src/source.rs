@@ -1,3 +1,7 @@
+//!
+//! SourceInfo is the type for the setter and getter of Plyr.source. This allows changing the player source and type on the fly.
+//!
+
 use crate::options::PreviewThumbnailsOptions;
 use crate::{MediaType, Provider};
 
@@ -68,6 +72,7 @@ pub struct Track {
     pub default: Option<bool>,
 }
 
+/// This struct is used for the setter and getter of Plyr.source
 #[derive(TypedBuilder, Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct SourceInfo {

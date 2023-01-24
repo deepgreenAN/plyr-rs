@@ -1,3 +1,24 @@
+//!
+//! RAII types which are used to manage Plyr event listeners.
+//!
+//! When the some kind of `EventListener` is dropped, it will automatically deregister the event listener and
+//! clean up the closure's memory.
+//!
+//! ## Example
+//!
+//! ```rust
+//! use plyr::events::{PlyrStandardEventType, PlyrYoutubeEventListener};
+//! use plyr::Plyr;
+//!
+//! let player = Plyr::new("#player");
+//!
+//! let listener = PlyrYoutubeEventListener::new(
+//!     &player,
+//!     PlyrStandardEventType::playing.into(),
+//!     move |_| log("playing")
+//! );
+//! ```
+
 use crate::plyr::{Plyr, PlyrEvent, PlyrStateChangeEvent};
 use crate::{Error as PlyrError, Provider};
 use wasm_bindgen::{
@@ -38,7 +59,6 @@ impl PlyrEventListener {
             callback: Some(callback),
         }
     }
-
     /// Forget inner closure. This should be use when you want the closure to last forever.
     fn forget(&mut self) {
         self.callback.take().unwrap_throw().forget();
@@ -57,6 +77,7 @@ impl Drop for PlyrEventListener {
 // -------------------------------------------------------------------------------------------------
 // PlyrStandardEventListener
 
+/// EventType for Plyr standard events.
 #[allow(non_camel_case_types)]
 #[derive(StrumDisplay, Debug, Clone)]
 pub enum PlyrStandardEventType {
@@ -80,12 +101,13 @@ pub enum PlyrStandardEventType {
     ready,
 }
 
-/// EventListener for Plyr Standard events.
+/// EventListener for Plyr standard events.
 pub struct PlyrStandardEventListener {
     base_event_listener: PlyrEventListener,
 }
 
 impl PlyrStandardEventListener {
+    /// Constructor of EventListener for Plyr standard events.
     pub fn new<F: FnMut(&PlyrEvent) + 'static>(
         target: &Plyr,
         standard_event_type: PlyrStandardEventType,
@@ -101,6 +123,7 @@ impl PlyrStandardEventListener {
             ),
         }
     }
+    /// Constructor of EventListener for Plyr standard events. The callback is called only once.
     pub fn once<F: FnOnce(&PlyrEvent) + 'static>(
         target: &Plyr,
         standard_event_type: PlyrStandardEventType,
@@ -116,6 +139,8 @@ impl PlyrStandardEventListener {
             ),
         }
     }
+
+    /// Forget inner closure. This should be use when you want the closure to last forever.
     pub fn forget(&mut self) {
         self.base_event_listener.forget();
     }
@@ -124,6 +149,7 @@ impl PlyrStandardEventListener {
 // -------------------------------------------------------------------------------------------------
 // PlyrHtml5EventListener
 
+/// EventType for Plyr html5 events.
 #[cfg(feature = "html5")]
 #[allow(non_camel_case_types)]
 #[derive(Debug, Clone)]
@@ -168,7 +194,7 @@ impl Display for PlyrHtml5EventType {
     }
 }
 
-/// EventListener for Standard and Html5 events.
+/// EventListener for standard and Html5 events. *This module requires the following crate features to be activated: `html5`.*
 #[cfg(feature = "html5")]
 pub struct PlyrHtml5EventListener {
     base_event_listener: PlyrEventListener,
@@ -176,6 +202,7 @@ pub struct PlyrHtml5EventListener {
 
 #[cfg(feature = "html5")]
 impl PlyrHtml5EventListener {
+    /// Constructor of EventListener for Plyr standard and html5 events.
     pub fn new<F: FnMut(&PlyrEvent) + 'static>(
         target: &Plyr,
         event_type: PlyrHtml5EventType,
@@ -196,6 +223,7 @@ impl PlyrHtml5EventListener {
             Err(PlyrError::WrongEventProviderError)
         }
     }
+    /// Constructor of EventListener for Plyr standard and html5 events. The callback is called only once.
     pub fn once<F: FnOnce(&PlyrEvent) + 'static>(
         target: &Plyr,
         event_type: PlyrHtml5EventType,
@@ -216,6 +244,7 @@ impl PlyrHtml5EventListener {
             Err(PlyrError::WrongEventProviderError)
         }
     }
+    /// Forget inner closure. This should be use when you want the closure to last forever.
     pub fn forget(&mut self) {
         self.base_event_listener.forget();
     }
@@ -224,6 +253,7 @@ impl PlyrHtml5EventListener {
 // -------------------------------------------------------------------------------------------------
 // PlyrYoutubeEventListener
 
+/// EventType for Plyr youtube events.
 #[allow(non_camel_case_types)]
 #[derive(Debug, Clone)]
 pub enum PlyrYoutubeEventType {
@@ -249,12 +279,13 @@ impl Display for PlyrYoutubeEventType {
     }
 }
 
-/// EventListener for Standard event type and Youtube event type with statechange event.
+/// EventListener for Plyr standard and youtube events, which includes statechange event .
 pub struct PlyrYoutubeEventListener {
     base_event_listener: PlyrEventListener,
 }
 
 impl PlyrYoutubeEventListener {
+    /// Constructor of EventListener for Plyr standard and youtube events.
     pub fn new<F: FnMut(&PlyrEvent) + 'static>(
         target: &Plyr,
         event_type: PlyrYoutubeEventType,
@@ -275,6 +306,7 @@ impl PlyrYoutubeEventListener {
             Err(PlyrError::WrongEventProviderError)
         }
     }
+    /// Constructor of EventListener for Plyr standard and youtube events. The callback is called only once.
     pub fn once<F: FnOnce(&PlyrEvent) + 'static>(
         target: &Plyr,
         event_type: PlyrYoutubeEventType,
@@ -295,7 +327,8 @@ impl PlyrYoutubeEventListener {
             Err(PlyrError::WrongEventProviderError)
         }
     }
-    pub fn new_statechange<F: FnMut(&PlyrStateChangeEvent) + 'static>(
+    /// Constructor of EventListener for youtube statechange event.
+    pub fn new_on_statechange<F: FnMut(&PlyrStateChangeEvent) + 'static>(
         target: &Plyr,
         mut callback: F,
     ) -> Result<Self, PlyrError> {
@@ -319,7 +352,8 @@ impl PlyrYoutubeEventListener {
             Err(PlyrError::WrongEventProviderError)
         }
     }
-    pub fn once_statechange<F: FnOnce(&PlyrStateChangeEvent) + 'static>(
+    /// Constructor of EventListener for youtube statechange event. The callback is called only once.
+    pub fn once_on_statechange<F: FnOnce(&PlyrStateChangeEvent) + 'static>(
         target: &Plyr,
         callback: F,
     ) -> Result<Self, PlyrError> {
@@ -343,7 +377,39 @@ impl PlyrYoutubeEventListener {
             Err(PlyrError::WrongEventProviderError)
         }
     }
+    /// Forget inner closure. This should be use when you want the closure to last forever.
     pub fn forget(&mut self) {
         self.base_event_listener.forget();
+    }
+}
+
+// -------------------------------------------------------------------------------------------------
+// DestroyEventListener
+
+/// EventListener for Plyr destroy event.
+pub struct DestroyEventListener {
+    callback: Option<Closure<dyn FnMut()>>,
+}
+
+impl DestroyEventListener {
+    /// Constructor of EventListener for Plyr destroy event.
+    pub fn new<F: FnOnce() + 'static>(target: &Plyr, callback: F) -> Self {
+        let callback = Closure::once(Box::new(callback));
+        target.destroy_with_callback(callback.as_ref().unchecked_ref());
+        Self {
+            callback: Some(callback),
+        }
+    }
+    /// Constructor of EventListener for Plyr destroy event with a soft flag.
+    pub fn new_with_soft<F: FnOnce() + 'static>(target: &Plyr, callback: F, soft: bool) -> Self {
+        let callback = Closure::once(Box::new(callback));
+        target.destroy_with_callback_and_soft(callback.as_ref().unchecked_ref(), soft);
+        Self {
+            callback: Some(callback),
+        }
+    }
+    /// Forget inner closure. This should be use when you want the closure to last forever.
+    pub fn forget(&mut self) {
+        self.callback.take().unwrap_throw().forget();
     }
 }
