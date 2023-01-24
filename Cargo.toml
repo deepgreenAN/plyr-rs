@@ -2,6 +2,12 @@
 name = "plyr"
 version = "0.0.1"
 edition = "2021"
+authors = ["Asami <asami73dgreen63@gmail.com>"]
+description = "Rust binding for plyr"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/deepgreenAN/plyr-rs"
+documentation = "..."
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
