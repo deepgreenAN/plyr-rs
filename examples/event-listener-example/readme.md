@@ -1,5 +1,5 @@
-# Plyr EventListener Example
+# Plyr eventListener example
 
 ```
-trunk serve --release
+trunk serve
 ```

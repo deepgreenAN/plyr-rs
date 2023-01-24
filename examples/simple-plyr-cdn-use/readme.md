@@ -1,4 +1,4 @@
-# yewのテンプレート(最適化済み)
+# Plyr cdn exmple
 ```
-trunk serve --release
+trunk serve
 ```

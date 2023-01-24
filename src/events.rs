@@ -12,6 +12,7 @@ use strum_macros::Display as StrumDisplay;
 // PlyrEventListener
 
 /// base plyr event listener
+#[allow(clippy::type_complexity)]
 struct PlyrEventListener {
     target: Plyr,
     event_type: String,

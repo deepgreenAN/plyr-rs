@@ -1,4 +1,4 @@
-# leptosのテンプレート(最適化済み)
+# Plyr leptos example
 ```
-trunk serve --release
+trunk serve
 ```

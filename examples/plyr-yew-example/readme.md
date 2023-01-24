@@ -1,5 +1,5 @@
-# Plyr の yew の example
+# Plyr yew example
 
 ```
-trunk serve --release
+trunk serve
 ```

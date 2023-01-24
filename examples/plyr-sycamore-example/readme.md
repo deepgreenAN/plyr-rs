@@ -1,5 +1,5 @@
 # Plyr sycamore example
 
 ```
-trunk serve --release
+trunk serve
 ```

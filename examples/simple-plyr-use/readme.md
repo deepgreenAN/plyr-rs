@@ -1,4 +1,4 @@
-# yewのテンプレート(最適化済み)
+# Plyr simple example
 ```
-trunk serve --release
+trunk serve
 ```

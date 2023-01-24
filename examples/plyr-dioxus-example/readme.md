@@ -1,5 +1,5 @@
 # Plyr dioxus example
 
 ```
-trunk serve --release
+trunk serve
 ```

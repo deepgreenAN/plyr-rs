@@ -10,3 +10,4 @@ trunk build
 cd server
 cargo run
 ```
+Access to `localhost:3000`
