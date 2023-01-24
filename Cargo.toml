@@ -1,6 +1,6 @@
 [package]
 name = "plyr"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 authors = ["Asami <asami73dgreen63@gmail.com>"]
 description = "Rust bindings for plyr"
@@ -9,6 +9,12 @@ repository = "https://github.com/deepgreenAN/plyr-rs"
 readme = "README.md"
 categories = ["API bindings", "wasm"]
 keywords = ["web", "javascript", "player", "plyr"]
+
+[package.metadata.docs.rs]
+# Features to pass to Cargo (default: [])
+# features = ["html5", "options"]
+# Whether to pass `--all-features` to Cargo (default: false)
+all-features = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
