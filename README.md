@@ -1,6 +1,8 @@
 # Plyr-rs
+[![crates.io](https://img.shields.io/crates/v/plyr.svg)](https://crates.io/crates/plyr)
+[![docs.rs](https://docs.rs/plyr/badge.svg)](https://docs.rs/plyr)
 
-Rust binding for [Plyr](https://github.com/sampotts/plyr)．Please check the official plyr page for more details.
+Rust bindings for [Plyr](https://github.com/sampotts/plyr)．Please check the official plyr page for more details.
 
 ## Installation
 Specify it as a dependency in `Cargo.toml`

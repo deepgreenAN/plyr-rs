@@ -1,6 +1,6 @@
 //!
 //! # Plyr-rs
-//! Rust binding for [Plyr](https://github.com/sampotts/plyr).
+//! Rust bindings for [Plyr](https://github.com/sampotts/plyr).
 //!
 //! ## Example
 //! ```rust
