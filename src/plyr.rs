@@ -368,11 +368,11 @@ extern "C" {
 
     #[wasm_bindgen(method, getter)]
     #[doc = "Getter for the `api` field of this object."]
-    pub fn api(this: &Plyr) -> bool;
+    pub fn api(this: &Support) -> bool;
 
     #[wasm_bindgen(method, getter)]
     #[doc = "Getter for the `ui` field of this object."]
-    pub fn ui(this: &Plyr) -> bool;
+    pub fn ui(this: &Support) -> bool;
 
     // -------------------------------------------------------------------------------------------------
     // Elements

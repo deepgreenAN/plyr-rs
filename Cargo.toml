@@ -7,7 +7,7 @@ description = "Rust bindings for plyr"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/deepgreenAN/plyr-rs"
 readme = "README.md"
-categories = ["API bindings", "wasm"]
+categories = ["api-bindings", "wasm"]
 keywords = ["web", "javascript", "player", "plyr"]
 
 [package.metadata.docs.rs]
