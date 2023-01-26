@@ -533,7 +533,7 @@ extern "C" {
     // Fullscreen
 
     #[derive(Debug, Clone)]
-    #[doc = "Plyr.FullscreenControl Object"]
+    #[doc = "Plyr.FullscreenControl object"]
     pub type FullscreenControl;
 
     #[wasm_bindgen(method, getter)]

@@ -14,7 +14,7 @@
 pub mod error;
 /// This module contains event listeners for Standard, Html5, and Youtube.
 pub mod events;
-/// This module contains `Plyr` type and other information enum type.
+/// This module contains `Plyr` type and other information enum types.
 pub mod plyr;
 
 /// This module contains `Options` type like `Plyr.Options` of original Js library.  *This module requires the following crate features to be activated: `options`*
