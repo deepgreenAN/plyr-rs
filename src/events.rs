@@ -190,7 +190,7 @@ impl Display for PlyrHtml5EventType {
             Self::error => "error".to_string(),
             Self::PlyrStandardEventType(event_type) => event_type.to_string(),
         };
-        write!(f, "{}", formatted)
+        write!(f, "{formatted}")
     }
 }
 
@@ -275,7 +275,7 @@ impl Display for PlyrYoutubeEventType {
             Self::qualityrequested => "qualityrequested".to_string(),
             Self::PlyrStandardEventType(event_type) => event_type.to_string(),
         };
-        write!(f, "{}", formatted)
+        write!(f, "{formatted}")
     }
 }
 
