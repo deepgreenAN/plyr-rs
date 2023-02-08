@@ -28,7 +28,7 @@ fn IntersectionPlayer(cx: Scope, id: String) -> Element {
             let intersection_handler = IntersectionObserverHandler::new_with_options(
                 {
                     to_owned![player];
-                    move |_| {
+                    move |_, _| {
                         player.pause();
                     }
                 },
