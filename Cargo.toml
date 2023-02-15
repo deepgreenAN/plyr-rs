@@ -1,6 +1,6 @@
 [package]
 name = "plyr"
-version = "0.0.3"
+version = "0.0.4"
 edition = "2021"
 authors = ["Asami <asami73dgreen63@gmail.com>"]
 description = "Rust bindings for plyr"
@@ -45,3 +45,4 @@ serde-wasm-bindgen = { version = "^0.4", optional = true }
 
 
 [dev-dependencies]
+serde_json = "^1.0"

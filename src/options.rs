@@ -11,6 +11,12 @@
 //! let player = Plyr::new_with_options("#player", &options);
 //! ```
 
+mod vimeo_options;
+mod youtube_options;
+
+pub use vimeo_options::VimeoOptions;
+pub use youtube_options::YoutubeOptions;
+
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 
@@ -43,7 +49,7 @@ pub struct PlyrOptions {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub icon_url: Option<Option<String>>,
+    pub icon_url: Option<String>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -91,15 +97,15 @@ pub struct PlyrOptions {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub keyboard: Option<KeyBoardOptions>,
+    pub keyboard: Option<KeyboardOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub tooltips: Option<ToolTipOptions>,
+    pub tooltips: Option<TooltipOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub duration: Option<Option<f32>>,
+    pub duration: Option<f32>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -147,6 +153,14 @@ pub struct PlyrOptions {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
+    pub vimeo: Option<VimeoOptions>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub youtube: Option<YoutubeOptions>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
     pub preview_thumbnails: Option<PreviewThumbnailsOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -162,7 +176,7 @@ pub struct PlyrOptions {
 // KeyBoardOptions
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
-pub struct KeyBoardOptions {
+pub struct KeyboardOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub focused: Option<bool>,
@@ -176,7 +190,7 @@ pub struct KeyBoardOptions {
 // ToolTipOptions
 
 #[derive(TypedBuilder, Serialize, Debug, Default)]
-pub struct ToolTipOptions {
+pub struct TooltipOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub controls: Option<bool>,
@@ -228,7 +242,7 @@ pub struct FullscreenOptions {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub container: Option<Option<String>>,
+    pub container: Option<String>,
 }
 
 // -------------------------------------------------------------------------------------------------
