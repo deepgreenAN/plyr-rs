@@ -5,7 +5,7 @@ use typed_builder::TypedBuilder;
 // YoutubeOptions
 
 // The options for youtube iframe.
-#[derive(TypedBuilder, Serialize, Debug, Default)]
+#[derive(TypedBuilder, Serialize, Debug, Default, Clone, PartialEq)]
 pub struct YoutubeOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

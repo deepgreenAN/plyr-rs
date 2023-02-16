@@ -24,7 +24,7 @@ use typed_builder::TypedBuilder;
 // PlyrOpts
 
 /// The options type like Plyr.Options.
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct PlyrOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -175,7 +175,7 @@ pub struct PlyrOptions {
 // -------------------------------------------------------------------------------------------------
 // KeyBoardOptions
 
-#[derive(TypedBuilder, Serialize, Debug, Default)]
+#[derive(TypedBuilder, Serialize, Debug, Default, Clone, PartialEq)]
 pub struct KeyboardOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -189,7 +189,7 @@ pub struct KeyboardOptions {
 // -------------------------------------------------------------------------------------------------
 // ToolTipOptions
 
-#[derive(TypedBuilder, Serialize, Debug, Default)]
+#[derive(TypedBuilder, Serialize, Debug, Default, Clone, PartialEq)]
 pub struct TooltipOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -203,7 +203,7 @@ pub struct TooltipOptions {
 // -------------------------------------------------------------------------------------------------
 // CaptionOptions
 
-#[derive(TypedBuilder, Serialize, Debug, Default)]
+#[derive(TypedBuilder, Serialize, Debug, Default, Clone, PartialEq)]
 pub struct CaptionOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -221,7 +221,7 @@ pub struct CaptionOptions {
 // -------------------------------------------------------------------------------------------------
 // FullscreenOptions
 
-#[derive(TypedBuilder, Serialize, Debug, Default)]
+#[derive(TypedBuilder, Serialize, Debug, Default, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct FullscreenOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -248,7 +248,7 @@ pub struct FullscreenOptions {
 // -------------------------------------------------------------------------------------------------
 // StorageOptions
 
-#[derive(TypedBuilder, Serialize, Debug, Default)]
+#[derive(TypedBuilder, Serialize, Debug, Default, Clone, PartialEq)]
 pub struct StorageOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -262,7 +262,7 @@ pub struct StorageOptions {
 // -------------------------------------------------------------------------------------------------
 // SpeedOptions
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 pub struct SpeedOptions {
     pub selected: f32,
     pub options: Vec<f32>,
@@ -271,7 +271,7 @@ pub struct SpeedOptions {
 // -------------------------------------------------------------------------------------------------
 // QualityOptions
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 pub struct QualityOptions {
     pub default: u32,
 
@@ -285,7 +285,7 @@ pub struct QualityOptions {
 // -------------------------------------------------------------------------------------------------
 // LoopOptions
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 pub struct LoopOptions {
     pub active: bool,
 }
@@ -293,7 +293,7 @@ pub struct LoopOptions {
 // -------------------------------------------------------------------------------------------------
 // AdOptions
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct AdOptions {
     pub enabled: bool,
@@ -310,7 +310,7 @@ pub struct AdOptions {
 // -------------------------------------------------------------------------------------------------
 // PreviewThumbnailsOptions
 
-#[derive(TypedBuilder, Serialize, Deserialize, Debug)]
+#[derive(TypedBuilder, Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct PreviewThumbnailsOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -324,7 +324,7 @@ pub struct PreviewThumbnailsOptions {
 // -------------------------------------------------------------------------------------------------
 // MediaMetadataOptions
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 pub struct MediaMetadataOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -343,7 +343,7 @@ pub struct MediaMetadataOptions {
     pub artwork: Option<Vec<MediaMetadataArtwork>>,
 }
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 pub struct MediaMetadataArtwork {
     pub src: String,
 
@@ -358,13 +358,13 @@ pub struct MediaMetadataArtwork {
 // -------------------------------------------------------------------------------------------------
 // MarkerOptions
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 pub struct MarkerOptions {
     pub enabled: bool,
     pub points: Vec<MarkersPoints>,
 }
 
-#[derive(TypedBuilder, Serialize, Debug)]
+#[derive(TypedBuilder, Serialize, Debug, Clone, PartialEq)]
 pub struct MarkersPoints {
     pub time: u32,
     pub label: String,

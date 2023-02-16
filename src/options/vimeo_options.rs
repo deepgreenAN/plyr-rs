@@ -5,7 +5,7 @@ use typed_builder::TypedBuilder;
 // VimeoOptions
 
 // The options for vimeo iframe.
-#[derive(TypedBuilder, Serialize, Debug, Default)]
+#[derive(TypedBuilder, Serialize, Debug, Default, Clone, PartialEq)]
 pub struct VimeoOptions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
